@@ -12,7 +12,7 @@ class AdminController extends Controller
     public function addView() {
         return view('admin.add_doctor');
     }
-
+    
     public function upload(Request $request) {
         $doctor = new doctor;
         $image = $request->image;
@@ -25,11 +25,11 @@ class AdminController extends Controller
         $doctor->number = $request->number;
         $doctor->room = $request->room;
         $doctor->speciality = $request->speciality;
-
+        
         $doctor->save();
         return redirect()->back()->with('message', 'Doctor Added Sucessfully');
     }
-
+    
     public function showappointment() {
         $data = Appointment::all();
         return view('admin.showappointment',compact('data'));
@@ -44,6 +44,17 @@ class AdminController extends Controller
         $data = Appointment::find($id);
         $data->status = 'Canceled';
         $data->save();
+        return redirect()->back();
+    }
+    
+    public function showdoctor() {
+        $data = Doctor::all();
+        return view('admin.showdoctor', compact('data'));
+    }
+
+    public function deletedoctor($id) {
+        $data = Doctor::find($id);
+        $data->delete();
         return redirect()->back();
     }
 }
