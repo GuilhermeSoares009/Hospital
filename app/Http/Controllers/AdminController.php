@@ -6,6 +6,7 @@ use App\Models\Appointment;
 use Illuminate\Http\Request;
 
 use App\Models\Doctor;
+use PhpParser\Comment\Doc;
 
 class AdminController extends Controller
 {
@@ -22,7 +23,7 @@ class AdminController extends Controller
         
         $doctor->image = $imagename;
         $doctor->name = $request->name;
-        $doctor->number = $request->number;
+        $doctor->phone = $request->number;
         $doctor->room = $request->room;
         $doctor->speciality = $request->speciality;
         
@@ -56,5 +57,31 @@ class AdminController extends Controller
         $data = Doctor::find($id);
         $data->delete();
         return redirect()->back();
+    }
+
+    public function updatedoctor($id) {
+        $data = Doctor::find($id);
+        return view('admin.update_doctor', compact('data'));
+    }
+
+    public function editdoctor(Request $request,$id) {
+        $doctor = Doctor::find($id);
+        
+        $doctor->name = $request->name;
+        $doctor->phone = $request->phone;
+        $doctor->room = $request->room;
+        $doctor->speciality = $request->speciality;
+
+        $image = $request->image;
+        if($image){
+            $imagename = time().'.'.$image->getClientOriginalExtension();
+            
+            $request->image->move('doctorimage', $imagename);
+            
+            $doctor->image = $imagename;
+        }
+
+        $doctor->save();
+        return redirect()->back()->with('message', 'Doctor Details Updated Sucessfully');
     }
 }
