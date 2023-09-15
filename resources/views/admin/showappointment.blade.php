@@ -21,21 +21,25 @@
                     <th style="padding: 10px;">Status</th>
                     <th style="padding: 10px;">Approved</th>
                     <th style="padding: 10px;">Canceled</th>
+                    <th style="padding: 10px;">Send Mail</th>
                 </tr>
                 @foreach ($data as $appoint)
                     <tr style="background-color:white;">
-                        <th style="padding: 10px;color: black">{{$appoint->name}}</th>
-                        <th style="padding: 10px;color: black">{{$appoint->email}}</th>
-                        <th style="padding: 10px;color: black">{{$appoint->phone}}</th>
-                        <th style="padding: 10px;color: black">{{$appoint->doctor}}</th>
-                        <th style="padding: 10px;color: black">{{$appoint->message}}</th>
-                        <th style="padding: 10px;color: black">{{$appoint->status}}</th>
-                        <th style="padding: 10px;color: black">
+                        <td style="padding: 10px;color: black">{{$appoint->name}}</td>
+                        <td style="padding: 10px;color: black">{{$appoint->email}}</td>
+                        <td style="padding: 10px;color: black">{{$appoint->phone}}</td>
+                        <td style="padding: 10px;color: black">{{$appoint->doctor}}</td>
+                        <td style="padding: 10px;color: black">{{$appoint->message}}</th>
+                        <td style="padding: 10px;color: black">{{$appoint->status}}</td>
+                        <td style="padding: 10px;color: black">
                             <a class="btn btn-success" href="{{url('approved',$appoint->id)}}">Approved</a>
-                        </th>
-                        <th style="padding: 10px;color: black">
+                        </td>
+                        <td style="padding: 10px;color: black">
                             <a class="btn btn-danger" href="{{url('canceled',$appoint->id)}}">Canceled</a>
-                        </th>
+                        </td>
+                        <td style="padding: 10px;color: black">
+                            <a class="btn btn-primary" href="{{url('emailview',$appoint->id)}}">Send Mail</a>
+                        </td>
                     </tr>
                 @endforeach
             </table>
